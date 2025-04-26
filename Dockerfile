@@ -26,6 +26,9 @@ COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 
+# Create public directory if it doesn't exist
+RUN mkdir -p public
+
 # Expose the port the app runs on
 EXPOSE 3000
 
