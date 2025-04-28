@@ -1,9 +1,15 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import AuthModal from './components/AuthModal';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  const openAuthModal = () => {
+    setIsAuthModalOpen(true);
+  };
 
   return (
     <>
@@ -26,7 +32,10 @@ export default function Home() {
                 <a href="#" className="text-gray-600 hover:text-indigo-600">Features</a>
                 <a href="#" className="text-gray-600 hover:text-indigo-600">About</a>
                 <a href="#" className="text-gray-600 hover:text-indigo-600">Contact</a>
-                <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700">
+                <button 
+                  className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+                  onClick={openAuthModal}
+                >
                   Get Started
                 </button>
               </div>
@@ -46,12 +55,12 @@ export default function Home() {
             </p>
             <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
               <div className="rounded-md shadow">
-                <a
-                  href="#"
+                <button
+                  onClick={openAuthModal}
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
                 >
                   Get started
-                </a>
+                </button>
               </div>
               <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                 <a
@@ -115,17 +124,20 @@ export default function Home() {
             </h2>
             <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
               <div className="inline-flex rounded-md shadow">
-                <a
-                  href="#"
+                <button
+                  onClick={openAuthModal}
                   className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-indigo-50"
                 >
                   Get started
-                </a>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal isOpen={isAuthModalOpen} setIsOpen={setIsAuthModalOpen} />
     </>
   );
 } 
