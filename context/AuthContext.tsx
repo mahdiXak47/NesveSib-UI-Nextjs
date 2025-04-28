@@ -35,7 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const params = new URLSearchParams();
       params.append('username', username);
       params.append('password', password);
-      const response = await fetch('http://21e825e2-5fd5-49e3-8ce5-b2227fb443c7.hsvc.ir/login', {
+      const response = await fetch('https://21e825e2-5fd5-49e3-8ce5-b2227fb443c7.hsvc.ir/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString(),
@@ -61,7 +61,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       params.append('password', password);
       params.append('firstName', firstName);
       params.append('lastName', lastName);
-      const response = await fetch('http://21e825e2-5fd5-49e3-8ce5-b2227fb443c7.hsvc.ir/signup', {
+      const response = await fetch('https://21e825e2-5fd5-49e3-8ce5-b2227fb443c7.hsvc.ir/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString(),
