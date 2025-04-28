@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Head from 'next/head';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import AuthModal from './components/AuthModal';
+import AuthModal from '../components/AuthModal';
 
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
