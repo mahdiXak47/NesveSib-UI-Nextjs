@@ -32,13 +32,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (username: string, password: string) => {
     try {
-      const params = new URLSearchParams();
-      params.append('username', username);
-      params.append('password', password);
-      const response = await fetch('https://21e825e2-5fd5-49e3-8ce5-b2227fb443c7.hsvc.ir:8080/login', {
+      const response = await fetch('https://2cc3c155-12bc-4068-8ca4-6bf42d9d1f5b.hsvc.ir:31789/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
@@ -56,15 +53,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (username: string, password: string, firstName: string, lastName: string) => {
     try {
-      const params = new URLSearchParams();
-      params.append('username', username);
-      params.append('password', password);
-      params.append('firstName', firstName);
-      params.append('lastName', lastName);
-      const response = await fetch('https://21e825e2-5fd5-49e3-8ce5-b2227fb443c7.hsvc.ir:8080/signup', {
+      const response = await fetch('https://2cc3c155-12bc-4068-8ca4-6bf42d9d1f5b.hsvc.ir:31789/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: params.toString(),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password, firstName, lastName }),
       });
 
       if (!response.ok) {
