@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (username: string, password: string) => {
     try {
-      const response = await fetch('http://2cc3c155-12bc-4068-8ca4-6bf42d9d1f5b.hsvc.ir:31789/login', {
+      const response = await fetch('https://2cc3c155-12bc-4068-8ca4-6bf42d9d1f5b.hsvc.ir:31789/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (username: string, password: string, firstName: string, lastName: string) => {
     try {
-      const response = await fetch('http://2cc3c155-12bc-4068-8ca4-6bf42d9d1f5b.hsvc.ir:31789/signup', {
+      const response = await fetch('https://2cc3c155-12bc-4068-8ca4-6bf42d9d1f5b.hsvc.ir:31789/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, firstName, lastName }),
