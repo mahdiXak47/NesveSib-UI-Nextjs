@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (username: string, password: string) => {
     try {
-      const response = await fetch('https://simple-backend.darkube.app/login', {
+      const response = await fetch('https://simple-backend.darkube.app/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signup = async (username: string, password: string, firstName: string, lastName: string) => {
     try {
-      const response = await fetch('https://simple-backend.darkube.app/signup', {
+      const response = await fetch('https://simple-backend.darkube.app/signup/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password, firstName, lastName }),
