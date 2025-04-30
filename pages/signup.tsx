@@ -29,9 +29,15 @@ export default function SignUp() {
 
     try {
       setLoading(true);
-      await signup(formData.username, formData.password, formData.firstName, formData.lastName);
+      const signupData = {
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        username: formData.username,
+        password: formData.password
+      };
+      await signup(signupData);
       toast.success('Account created successfully!');
-      router.push('/');
+      router.push('/dashboard');
     } catch (error) {
       toast.error('Failed to create account');
     } finally {

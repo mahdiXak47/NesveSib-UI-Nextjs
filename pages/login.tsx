@@ -21,9 +21,13 @@ export default function Login() {
     e.preventDefault();
     try {
       setLoading(true);
-      await login(formData.username, formData.password);
+      const loginData = {
+        username: formData.username,
+        password: formData.password
+      };
+      await login(loginData);
       toast.success('Logged in successfully!');
-      router.push('/');
+      router.push('/dashboard');
     } catch (error) {
       toast.error('Invalid credentials');
     } finally {

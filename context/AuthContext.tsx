@@ -3,14 +3,26 @@ import Cookies from 'js-cookie';
 
 interface User {
   username: string;
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
+}
+
+interface LoginData {
+  username: string;
+  password: string;
+}
+
+interface SignupData {
+  first_name: string;
+  last_name: string;
+  username: string;
+  password: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  login: (username: string, password: string) => Promise<void>;
-  signup: (username: string, password: string, firstName: string, lastName: string) => Promise<void>;
+  login: (data: LoginData) => Promise<void>;
+  signup: (data: SignupData) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
 }
@@ -30,42 +42,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const login = async (username: string, password: string) => {
+  const login = async (data: LoginData) => {
     try {
       const response = await fetch('https://simple-backend.darkube.app/login/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         throw new Error('Login failed');
       }
 
-      const data = await response.json();
-      Cookies.set('user_data', JSON.stringify(data));
-      setUser(data);
+      const responseData = await response.json();
+      Cookies.set('user_data', JSON.stringify(responseData));
+      setUser(responseData);
       setIsAuthenticated(true);
     } catch (error) {
       throw error;
     }
   };
 
-  const signup = async (username: string, password: string, firstName: string, lastName: string) => {
+  const signup = async (data: SignupData) => {
     try {
       const response = await fetch('https://simple-backend.darkube.app/signup/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password, firstName, lastName }),
+        body: JSON.stringify(data),
       });
 
       if (!response.ok) {
         throw new Error('Signup failed');
       }
 
-      const data = await response.json();
-      Cookies.set('user_data', JSON.stringify(data));
-      setUser(data);
+      const responseData = await response.json();
+      Cookies.set('user_data', JSON.stringify(responseData));
+      setUser(responseData);
       setIsAuthenticated(true);
     } catch (error) {
       throw error;
