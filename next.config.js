@@ -1,3 +1,5 @@
+const { withSentryConfig } = require('@sentry/nextjs');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -5,4 +7,8 @@ const nextConfig = {
   swcMinify: true,
 }
 
-module.exports = nextConfig 
+const sentryWebpackPluginOptions = {
+  // Additional config options for Sentry Webpack plugin (optional)
+};
+
+module.exports = withSentryConfig(nextConfig, sentryWebpackPluginOptions); 

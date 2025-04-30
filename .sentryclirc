@@ -1,0 +1,6 @@
+[auth]
+token=6f0407ee25ac11f08766d60c6d04e8a8
+
+[defaults]
+org=mahdiaxak-customer
+project=javascript-nextjs

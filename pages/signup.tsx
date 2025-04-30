@@ -2,6 +2,13 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
+import * as Sentry from "@sentry/nextjs";
+
+Sentry.init({
+  dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
+  tracesSampleRate: 1.0, // Adjust for production
+  // Add other options as needed
+});
 
 export default function SignUp() {
   const router = useRouter();
