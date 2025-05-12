@@ -6,9 +6,41 @@ import AuthModal from '../components/AuthModal';
 export default function Home() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState('');
 
   const openAuthModal = () => {
     setIsAuthModalOpen(true);
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setUploadStatus('');
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setUploadStatus('File uploaded successfully!');
+      } else {
+        setUploadStatus(`Upload failed: ${data.message}`);
+      }
+    } catch (error) {
+      setUploadStatus('Error uploading file. Please try again.');
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -110,6 +142,63 @@ export default function Home() {
                     Advanced tools and capabilities to help you achieve your goals.
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* File Upload Section */}
+        <div className="py-12 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="lg:text-center">
+              <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">File Upload</h2>
+              <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                Upload Your Files
+              </p>
+              <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                Securely upload and store your files with our platform.
+              </p>
+            </div>
+
+            <div className="mt-10 flex flex-col items-center">
+              <div className="w-full max-w-md">
+                <label
+                  htmlFor="file-upload"
+                  className="cursor-pointer bg-white rounded-lg border-2 border-dashed border-gray-300 hover:border-indigo-500 px-6 py-8 flex flex-col items-center justify-center"
+                >
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    stroke="currentColor"
+                    fill="none"
+                    viewBox="0 0 48 48"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                      strokeWidth={2}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="mt-2 block text-sm font-medium text-gray-900">
+                    {uploading ? 'Uploading...' : 'Click to upload a file'}
+                  </span>
+                  <input
+                    id="file-upload"
+                    name="file-upload"
+                    type="file"
+                    className="hidden"
+                    onChange={handleFileUpload}
+                    disabled={uploading}
+                  />
+                </label>
+                {uploadStatus && (
+                  <p className={`mt-2 text-sm text-center ${
+                    uploadStatus.includes('successfully') ? 'text-green-600' : 'text-red-600'
+                  }`}>
+                    {uploadStatus}
+                  </p>
+                )}
               </div>
             </div>
           </div>
